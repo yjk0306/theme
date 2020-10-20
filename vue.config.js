@@ -1,6 +1,6 @@
 // const { SkeletonPlugin } = require('page-skeleton-webpack-plugin')
 const path = require('path')
-const ThemeColorReplacer = require('webpack-theme-color-replacer')
+// const ThemeColorReplacer = require('webpack-theme-color-replacer')
 
 module.exports = {
   configureWebpack: {
@@ -12,6 +12,16 @@ module.exports = {
       // })
     ],
   },
+  css: {
+    loaderOptions: {
+      // 依次导入的公用的scss变量，公用的scss混入，共用的默认样式
+      sass: {
+        prependData: `
+          @import "~@/scss/register.scss";
+        `
+      }
+    }
+  },
   chainWebpack: config => {   // 解决vue-cli3脚手架创建的项目压缩html 干掉<!-- shell -->导致骨架屏不生效
     // if (process.env.NODE_ENV !== 'development') {
     //   config.plugin('html').tap(opts => {
@@ -21,16 +31,16 @@ module.exports = {
     // }
 
     // 自定义换肤
-		config.plugin('webpack-theme-color-replacer')
-    .use(ThemeColorReplacer)
-    .tap(options => {
-      options[0] = {
-        fileName: 'css/theme-colors-[contenthash:8].css',
-        matchColors: [ '#409eff', '#efefef'], //自定义颜色 
-        // changeSelector: forElementUI.changeSelector,
-        isJsUgly: process.env.NODE_ENV !== 'development'
-      }
-      return options
-    })
+		// config.plugin('webpack-theme-color-replacer')
+    // .use(ThemeColorReplacer)
+    // .tap(options => {
+    //   options[0] = {
+    //     fileName: 'css/theme-colors-[contenthash:8].css',
+    //     matchColors: [ '#409eff', '#efefef'], //自定义颜色 
+    //     // changeSelector: forElementUI.changeSelector,
+    //     isJsUgly: process.env.NODE_ENV !== 'development'
+    //   }
+    //   return options
+    // })
   },
 };

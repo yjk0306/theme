@@ -1,0 +1,9 @@
+
+.theme-#{$themeName} {
+  p {
+    color: $titleColor;
+  }
+  h1 {
+    color: $testColor;
+  }
+}
